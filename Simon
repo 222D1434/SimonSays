@@ -1,0 +1,50 @@
+// Simon Says
+
+// Pin Definitions :
+// Pin 2 - LED 1 (-)
+// Pin 3 - LED 2 (-)
+// Pin 4 - LED 3 (-)
+// Pin 5 - LED 4 (-)
+// Pin 6 - Button 1 (+)
+// Pin 7 - Button 2 (+)
+// Pin 8 - Button 3 (+)
+// Pin 9 - Button 4 (+)
+// Pin 11 - Speaker (+)
+
+const int speaker = 11; // Set to the pin you connected the speaker to
+
+//*****************************************
+
+int LENGTH = 400; // Length of time to play the main notes
+
+int notes[4] = {100, 350, 600, 850}; // Values for the 4 notes used in the game
+
+int gamepattern[20]; // Array to store game pattern in during play
+
+int difficulty = 1;
+
+//*****************************************
+
+
+void setup() {
+  pinMode(2, OUTPUT); // Set up LED PINS
+  pinMode(3, OUTPUT);
+  pinMode(4, OUTPUT);
+  pinMode(5, OUTPUT);
+
+  pinMode(6, INPUT); // Set up button pins
+  pinMode(7, INPUT);
+  pinMode(8, INPUT);
+  pinMode(9, INPUT);
+  
+  Serial.begin(9600); // Enable serial output so we can debug using the serial reader in the Arduino IDE
+ 
+  }
+
+void loop() {
+  setPins(); // Set the LED and Button pins HIGH
+  
+  //generate_game(); // Was used for testing a single-game mode before main menu was implimented
+  //testButtons(); // Used to test buttons without playing the game
+  main_menu();
+}
