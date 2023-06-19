@@ -48,3 +48,45 @@ void loop() {
   //testButtons(); // Used to test buttons without playing the game
   main_menu();
 }
+
+void main_menu()
+{
+  while (1 == 1)
+  {
+    if (digitalRead(6) == LOW)
+    {
+      difficulty = 1;
+      generate_game();
+      play_game();
+    }
+    if (digitalRead(7) == LOW)
+    {
+      difficulty = 2;
+      generate_game();
+      play_game();
+    }
+    if (digitalRead(8) == LOW)
+    {
+      difficulty = 3;
+      generate_game();
+      play_game();
+    }
+    if (digitalRead(9) == LOW)
+    {
+      difficulty = 4;
+      generate_game();
+      play_game();
+    }
+  }
+}
+
+ 
+
+void setPins() {
+
+ 
+
+  for (int i=2; i<10; i++) {
+    digitalWrite(i, HIGH);
+  }
+}
