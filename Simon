@@ -90,3 +90,75 @@ void setPins() {
     digitalWrite(i, HIGH);
   }
 }
+void play_game() 
+{
+
+  int roundCount = 0;
+  int playerTurn = 1;
+  bool buttonPress = false;
+  int currentNote;
+  int userInput = 0;
+  bool loss = false;
+  play_note(1, 100);
+  play_note(2, 100);
+  play_note(3, 100);
+  play_note(4, 100);
+  delay(1000);
+  for (int currentRound=1; (currentRound - 1)<=(difficulty * 5); currentRound++) // Number of rounds to play
+    {
+      delay(1000);
+      roundCount += 1;
+      playerTurn = 1;
+      buttonPress = false;
+      userInput = 0;
+      for (int j = 1; j != currentRound; j++)
+      {
+        play_note(gamepattern[j - 1], LENGTH); // Play current round note(s)
+      }
+      while (playerTurn < currentRound) {
+        currentNote = gamepattern[playerTurn - 1];
+        Serial.println(currentNote);
+        while (buttonPress == false) {
+           if (digitalRead(6) == LOW) // Button 1 Pressed
+           {
+             buttonPress = true;
+             userInput = 1;
+           }
+           if (digitalRead(7) == LOW) // Button 2 Pressed
+           {
+             buttonPress = true;
+             userInput = 2;
+           }
+           if (digitalRead(8) == LOW) // Button 3 Pressed
+           {
+             buttonPress = true;
+             userInput = 3;
+           }
+           if (digitalRead(9) == LOW) // Button 4 Pressed
+           {
+             buttonPress = true;
+             userInput = 4;
+           }
+           if (buttonPress == true) // A button was Pressed
+           {
+             play_note(userInput, LENGTH); // Play the note pushed
+             if (currentNote == userInput) // You pushed the right one!
+             {
+               playerTurn++;
+             }
+             else // You pushed the wrong one! :(
+             {
+               game_over(false);
+             }
+          }
+            
+    }
+    buttonPress = false;
+   }
+  }
+  if (loss == false){
+    Serial.println("You Win!");
+    game_over(true);
+  }
+ }
+  
