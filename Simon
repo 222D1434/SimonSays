@@ -161,4 +161,69 @@ void play_game()
     game_over(true);
   }
  }
+void generate_game() {
+  randomSeed(analogRead(1));
+  for (int i=0; i<(difficulty * 5); i++) // For each level of difficulty, add 5 more turns to the game
+  {
+    gamepattern[i] = random(1, 5);
+
+  }
+}
+
+void play_note(int index, int notespeed) {
+  digitalWrite(index + 1, LOW);
+  tone(speaker, notes[ index - 1 ], notespeed);
+  delay(notespeed * 2);
+  digitalWrite(index + 1, HIGH);
+
+}
+
+void game_over(bool win) {
+  if (win) {
+    Serial.println("You Win!");
+     for (int i = 0; i < 10; i++){
+      play_note(1, 50);
+      play_note(2, 50);
+      play_note(3, 50);
+      play_note(4, 50);
+    }
+  }
   
+  else {
+    Serial.println("You Lose!");
+    for (int i = 0; i < 6; i++){
+      play_note(4, 100);
+      play_note(3, 100);
+      play_note(2, 100);
+      play_note(1, 100);
+    }
+  }
+  Serial.println("Game over");
+  main_menu();
+}
+
+void testButtons() // Created this function to test buttons without having to run the entire game
+{
+  while (1 == 1){
+    if (digitalRead(6) == LOW)
+    {
+      Serial.println("Button 1 Pressed");
+      play_note(1, LENGTH);
+    }
+    if (digitalRead(7) == LOW)
+    {
+      Serial.println("Button 2 Pressed");
+      play_note(2, LENGTH);
+    }
+    if (digitalRead(8) == LOW) 
+    {
+      Serial.println("Button 3 Pressed");
+      play_note(3, LENGTH);
+    }
+    if (digitalRead(9) == LOW)
+    {
+      Serial.println("Button 4 Pressed");
+      play_note(4, LENGTH);
+    }
+  }
+}
